@@ -33,7 +33,7 @@ $next = $path_info.URL::query(array_merge($qs, array('month' => date('n', $next)
 	<tbody>
 		<?php foreach ($weeks as $week): ?>
 		<tr>
-			<?php foreach ($week as $day):
+			<?php foreach ($week as $key => $day):
 				list($number, $current, $data) = $day;
 				
 				$output = NULL;
@@ -48,7 +48,7 @@ $next = $path_info.URL::query(array_merge($qs, array('month' => date('n', $next)
 				}
 			?>
 			<td class="<?php echo implode(' ', $classes) ?>">
-				<span class="day"><?php echo $day[0] ?></span>
+				<span class="day day_<?php echo $key+1 ?> current_<?php echo $current ?>"><?php echo $day[0] ?></span>
 				<?php echo $output ?>
 			</td>
 			<?php endforeach ?>
