@@ -20,8 +20,8 @@ $next = $path_info.URL::query(array_merge($qs, array('month' => date('n', $next)
 <table class="calendar">
 	<caption>
 		<span class="prev"><?php echo html::anchor($prev, '&larr;') ?></span>
-		<span class="title"><?php echo strftime('%B %Y', mktime(0, 0, 0, $month, 1, $year)) ?></span>
 		<span class="next"><?php echo html::anchor($next, '&rarr;') ?></span>
+		<span class="title"><?php echo strftime('%Y %B', mktime(0, 0, 0, $month, 1, $year)) ?></span>
 	</caption>
 	<thead>
 		<tr>
