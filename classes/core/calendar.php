@@ -6,6 +6,7 @@
  *
  * @package    Calendar
  * @author     Kohana Team, Anton Pawlik
+ * @author     Sergei Gladkovskiy <smgladkovskiy@gmail.com>
  * @copyright  (c) 2007-2008 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
@@ -27,19 +28,20 @@ abstract class Core_Calendar extends Event_Subject {
 	/**
 	 * Returns an array of the names of the days, using the current locale.
 	 *
-	 * @param   integer  left of day names
-	 * @return  array
+	 * @static
+	 * @param  int|bool $length length of days names
+	 * @return array
 	 */
 	public static function days($length = TRUE)
 	{
+		$days = array();
+
 		// strftime day format
 		$format = ($length > 3) ? '%A' : '%a';
 
 		// Days of the week
 		for ($i = 0; $i < 7; $i++)
 		{
-		//	$days[] = strftime($format, strtotime('+'.$i.' day', 300000));
-		//	$days[] = strftime($format, ($i * 60*60*24 + 300000));
 			$days[] = strftime($format, ($i * 86400 + 300000));
 		}
 
@@ -65,9 +67,10 @@ abstract class Core_Calendar extends Event_Subject {
 	 * Create a new Calendar instance. A month and year can be specified.
 	 * By default, the current month and year are used.
 	 *
-	 * @param   integer  month number
-	 * @param   integer  year number
-	 * @return  object
+	 * @static
+	 * @param  int|null $month number
+	 * @param  int|null $year number
+	 * @return Calendar
 	 */
 	public static function factory($month = NULL, $year = NULL)
 	{
@@ -78,9 +81,8 @@ abstract class Core_Calendar extends Event_Subject {
 	 * Create a new Calendar instance. A month and year can be specified.
 	 * By default, the current month and year are used.
 	 *
-	 * @param   integer  month number
-	 * @param   integer  year number
-	 * @return  void
+	 * @param  int|null $month number
+	 * @param  int|null $year number
 	 */
 	public function __construct($month = NULL, $year = NULL)
 	{
@@ -101,8 +103,8 @@ abstract class Core_Calendar extends Event_Subject {
 	/**
 	 * Allows fetching the current month and year.
 	 *
-	 * @param   string  key to get
-	 * @return  mixed
+	 * @param  string $key
+	 * @return mixed
 	 */
 	public function __get($key)
 	{
@@ -110,13 +112,15 @@ abstract class Core_Calendar extends Event_Subject {
 		{
 			return $this->$key;
 		}
+
+		return NULL;
 	}
 
 	/**
 	 * Event factory method.
 	 *
-	 * @param   string  unique name for the event
-	 * @return  object  Event
+	 * @param  string|null $name unique name of the event
+	 * @return Event
 	 */
 	public function event($name = NULL)
 	{
@@ -127,8 +131,8 @@ abstract class Core_Calendar extends Event_Subject {
 	 * Event factory method.
 	 *
 	 * @chainable
-	 * @param   string  standard event type
-	 * @return  object
+	 * @param  string $name
+	 * @return Calendar
 	 */
 	public function standard($name)
 	{
@@ -290,11 +294,11 @@ abstract class Core_Calendar extends Event_Subject {
 	}
 
 	/**
-	 * Adds new data from an observer. All event data contains and array of CSS
+	 *  Adds new data from an observer. All event data contains and array of CSS
 	 * classes and an array of output messages.
 	 *
-	 * @param   array  observer data.
-	 * @return  void
+	 * @param  array $data
+	 * @return void
 	 */
 	public function add_data(array $data)
 	{
@@ -311,8 +315,8 @@ abstract class Core_Calendar extends Event_Subject {
 	/**
 	 * Resets the observed data and sends a notify to all attached events.
 	 *
-	 * @param   array  UNIX timestamp
-	 * @return  void
+	 * @param  array $data
+	 * @return void
 	 */
 	public function notify($data)
 	{
@@ -329,8 +333,8 @@ abstract class Core_Calendar extends Event_Subject {
 
 	/**
 	 * Convert the calendar to HTML using the kohana_calendar view.
-	 *
-	 * @return  string
+	 * @param  string $tmpl
+	 * @return string
 	 */
 	public function render($tmpl = 'calendar')
 	{
@@ -354,4 +358,4 @@ abstract class Core_Calendar extends Event_Subject {
 		return $this->render();
 	}
 
-} // End Calendar
+} // End Core_Calendar

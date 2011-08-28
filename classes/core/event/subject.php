@@ -2,24 +2,28 @@
 /**
  * Kohana event subject. Uses the SPL observer pattern.
  *
- * $Id: Event_Subject.php 3769 2008-12-15 00:48:56Z zombor $
- *
- * @package    Core
+ * @package    Calendar
  * @author     Kohana Team
+ * @author     Sergei Gladkovskiy <smgladkovskiy@gmail.com>
  * @copyright  (c) 2007-2008 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
 abstract class Core_Event_Subject {
 
-	// Attached subject listeners
+	/**
+	 * Attached subject listeners
+	 *
+	 * @var array
+	 */
 	protected $listeners = array();
 
 	/**
 	 * Attach an observer to the object.
 	 *
 	 * @chainable
-	 * @param   object  Event_Observer
-	 * @return  object
+	 * @throws Kohana_Exception
+	 * @param  Event_Observer   $obj
+	 * @return Event_Subject
 	 */
 	public function attach(Event_Observer $obj)
 	{
@@ -36,8 +40,8 @@ abstract class Core_Event_Subject {
 	 * Detach an observer from the object.
 	 *
 	 * @chainable
-	 * @param   object  Event_Observer
-	 * @return  object
+	 * @param  Event_Observer|Core_Event_Observer $obj
+	 * @return Event_Subject
 	 */
 	public function detach(Event_Observer $obj)
 	{
@@ -51,8 +55,8 @@ abstract class Core_Event_Subject {
 	 * Notify all attached observers of a new message.
 	 *
 	 * @chainable
-	 * @param   mixed   message string, object, or array
-	 * @return  object
+	 * @param  mixed $message
+	 * @return Event_Subject
 	 */
 	public function notify($message)
 	{
@@ -64,4 +68,4 @@ abstract class Core_Event_Subject {
 		return $this;
 	}
 
-} // End Event Subject
+} // End Core_Event_Subject

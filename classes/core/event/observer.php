@@ -2,23 +2,25 @@
 /**
  * Kohana event observer. Uses the SPL observer pattern.
  *
- * $Id: Event_Observer.php 3769 2008-12-15 00:48:56Z zombor $
- *
- * @package    Core
+ * @package    Calendar
  * @author     Kohana Team
+ * @author     Sergei Gladkovskiy <smgladkovskiy@gmail.com>
  * @copyright  (c) 2007-2008 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
 abstract class Core_Event_Observer {
 
-	// Calling object
+	/**
+	 * Calling object
+	 *
+	 * @var Event_Subject
+	 */
 	protected $caller;
 
 	/**
 	 * Initializes a new observer and attaches the subject as the caller.
 	 *
-	 * @param   object  Event_Subject
-	 * @return  void
+	 * @param Event_Subject $caller
 	 */
 	public function __construct(Event_Subject $caller)
 	{
@@ -30,8 +32,9 @@ abstract class Core_Event_Observer {
 	 * Updates the observer subject with a new caller.
 	 *
 	 * @chainable
-	 * @param   object  Event_Subject
-	 * @return  object
+	 * @throws Kohana_Exception
+	 * @param  Event_Subject $caller
+	 * @return Event_Observer
 	 */
 	public function update(Event_Subject $caller)
 	{
@@ -48,7 +51,7 @@ abstract class Core_Event_Observer {
 	 * Detaches this observer from the subject.
 	 *
 	 * @chainable
-	 * @return  object
+	 * @return Core_Event_Observer
 	 */
 	public function remove()
 	{
@@ -62,9 +65,10 @@ abstract class Core_Event_Observer {
 	 * Notify the observer of a new message. This function must be defined in
 	 * all observers and must take exactly one parameter of any type.
 	 *
-	 * @param   mixed   message string, object, or array
-	 * @return  void
+	 * @abstract
+	 * @param  $message
+	 * @return void
 	 */
 	abstract public function notify($message);
 
-} // End Event Observer
+} // End Core_Event_Observer

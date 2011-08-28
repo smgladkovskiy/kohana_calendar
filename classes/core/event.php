@@ -2,10 +2,9 @@
 /**
  * Calendar event observer class.
  *
- * $Id: Event.php 4129 2009-03-27 17:47:03Z zombor $
- *
  * @package    Calendar
  * @author     Kohana Team
+ * @author     Sergei Gladkovskiy <smgladkovskiy@gmail.com>
  * @copyright  (c) 2007-2008 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
@@ -52,9 +51,9 @@ abstract class Core_Event extends Event_Observer {
 	 * To unset a condition, call condition with a value of NULL.
 	 *
 	 * @chainable
-	 * @param   string  condition key
-	 * @param   mixed   condition value
-	 * @return  object
+	 * @param  string $key
+	 * @param  mixed  $value
+	 * @return Event
 	 */
 	public function condition($key, $value)
 	{
@@ -89,8 +88,8 @@ abstract class Core_Event extends Event_Observer {
 	 * Add a CSS class for this event. This can be called multiple times.
 	 *
 	 * @chainable
-	 * @param   string  CSS class name
-	 * @return  object
+	 * @param  string $class CSS class name
+	 * @return Event
 	 */
 	public function add_class($class)
 	{
@@ -103,8 +102,8 @@ abstract class Core_Event extends Event_Observer {
 	 * Remove a CSS class for this event. This can be called multiple times.
 	 *
 	 * @chainable
-	 * @param   string  CSS class name
-	 * @return  object
+	 * @param  string $class CSS class name
+	 * @return Event
 	 */
 	public function remove_class($class)
 	{
@@ -117,8 +116,8 @@ abstract class Core_Event extends Event_Observer {
 	 * Set HTML output for this event.
 	 *
 	 * @chainable
-	 * @param   string  HTML output
-	 * @return  object
+	 * @param  string $str
+	 * @return Event
 	 */
 	public function output($str)
 	{
@@ -131,8 +130,8 @@ abstract class Core_Event extends Event_Observer {
 	 * Add a CSS class for this event. This can be called multiple times.
 	 *
 	 * @chainable
-	 * @param   string  CSS class name
-	 * @return  object
+	 * @param  array $data
+	 * @return bool
 	 */
 	public function notify($data)
 	{
@@ -277,8 +276,8 @@ abstract class Core_Event extends Event_Observer {
 	 * given month will return "2" as the occurrence. This is used in combination
 	 * with the "occurrence" condition.
 	 *
-	 * @param   integer  UNIX timestamp
-	 * @return  integer
+	 * @param  int $timestamp
+	 * @return int
 	 */
 	protected function day_occurrence($timestamp)
 	{
@@ -304,4 +303,4 @@ abstract class Core_Event extends Event_Observer {
 		}
 	}
 
-} // End Calendar Event
+} // End Core_Event
