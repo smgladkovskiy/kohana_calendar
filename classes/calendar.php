@@ -12,7 +12,7 @@
 class Calendar extends Event_Subject {
 
 	// Start the calendar on Sunday by default
-	public static $start_monday = FALSE;
+	public static $start_monday = TRUE;
 
 	// Month and year to use for calendaring
 	protected $month;
@@ -42,7 +42,7 @@ class Calendar extends Event_Subject {
 		//	$days[] = strftime($format, ($i * 60*60*24 + 300000));
 			$days[] = strftime($format, ($i * 86400 + 300000));
 		}
-		
+
 		if (Calendar::$start_monday === TRUE)
 		{
 			// Push Sunday to the end of the days

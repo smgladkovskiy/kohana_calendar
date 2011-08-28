@@ -3,6 +3,8 @@
 // Get the day names
 $days = Calendar::days(2);
 
+$today = date('d');
+
 // Previous and next month timestamps
 $next = mktime(0, 0, 0, $month + 1, 1, $year);
 $prev = mktime(0, 0, 0, $month - 1, 1, $year);
@@ -15,6 +17,12 @@ unset($qs['day']);
 $path_info = Arr::get($_SERVER, 'PATH_INFO');
 $prev = $path_info.URL::query(array_merge($qs, array('month' => date('n', $prev), 'year' => date('Y', $prev))));
 $next = $path_info.URL::query(array_merge($qs, array('month' => date('n', $next), 'year' => date('Y', $next))));
+
+// Maintain a Month Offset to find out the actual month in cas e of padding days
+// Initially assume prev month so -1
+// increment by 1 everytime day = 1
+// Actual month = $month + $month_offset
+$month_offset = -1;
 
 ?>
 <table class="calendar">
@@ -35,7 +43,10 @@ $next = $path_info.URL::query(array_merge($qs, array('month' => date('n', $next)
 		<tr>
 			<?php foreach ($week as $key => $day):
 				list($number, $current, $data) = $day;
-				
+                                if ($number === 1)
+                                {
+                                    $month_offset++;
+                                }
 				$output = NULL;
 				$classes = array();
 				if (is_array($data))
@@ -43,12 +54,16 @@ $next = $path_info.URL::query(array_merge($qs, array('month' => date('n', $next)
 					$classes = $data['classes'];
 					if ( ! empty($data['output']))
 					{
-						$output = '<ul class="output"><li>'.implode('</li><li>', $data['output']).'</li></ul>';
+						$output = '<div class="output"><ul><li class="calendar_event">'.implode('</li><li>', $data['output']).'</li></ul></div>';
+						$classes[] = 'event';
 					}
 				}
+
+				if($current AND $today == $day[0])
+						$classes[] = 'today';
 			?>
-			<td class="<?php echo implode(' ', $classes) ?>">
-				<span class="day day_<?php echo $key+1 ?> current_<?php echo $current ?>"><?php echo $day[0] ?></span>
+			<td id="<?php echo implode('-', array('date',$year,($month+$month_offset),$day[0])); ?>" class="<?php echo implode(' ', $classes) ?>">
+				<span class="day"><?php echo $day[0] ?></span>
 				<?php echo $output ?>
 			</td>
 			<?php endforeach ?>
