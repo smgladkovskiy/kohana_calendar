@@ -4,6 +4,7 @@
 $days = Calendar::days(2);
 
 $today = date('d');
+$current_month = date('m');
 
 // Previous and next month timestamps
 $next = mktime(0, 0, 0, $month + 1, 1, $year);
@@ -59,8 +60,8 @@ $month_offset = -1;
 					}
 				}
 
-				if($current AND $today == $day[0])
-						$classes[] = 'today';
+				if($current_month == $month AND $today == $day[0])
+					$classes[] = 'today';
 			?>
 			<td id="<?php echo implode('-', array('date',$year,($month+$month_offset),$day[0])); ?>" class="<?php echo implode(' ', $classes) ?>">
 				<span class="day"><?php echo $day[0] ?></span>
