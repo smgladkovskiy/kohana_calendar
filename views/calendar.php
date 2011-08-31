@@ -60,7 +60,7 @@ $month_offset = -1;
 					}
 				}
 
-				if($current_month == $month AND $today == $day[0])
+				if($current_month == $month AND $today == $day[0] AND $current)
 					$classes[] = 'today';
 			?>
 			<td id="<?php echo implode('-', array('date',$year,($month+$month_offset),$day[0])); ?>" class="<?php echo implode(' ', $classes) ?>">
